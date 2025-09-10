@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: robotic_arm
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  mqtt:
+    image: eclipse-mosquitto:2
+    container_name: mqtt-broker
+    restart: always
+    volumes:
+      - ./mqtt/mosquitto.config:/mosquitto/config/mosquitto.conf
+    ports:
+      - "1883:1883"
+
+  backend:
+    build: ./backend
+    container_name: backend
+    command: python manage.py run
+    image: smart-robotic-arm-backend
+    volumes:
+      - ./backend:/app
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/robotic_arm
+    depends_on:
+      - db
+      - mqtt

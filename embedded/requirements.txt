@@ -1,0 +1,5 @@
+paho-mqtt==1.6.1      # For MQTT communication with backend
+pytest==8.3.2         # For unit testing
+pytest-mock==3.12.0   # For mocking in tests
+RPi.GPIO==0.7.1       # For Raspberry Pi GPIO (only on real hardware)
+numpy==2.0.1          # For math calculations

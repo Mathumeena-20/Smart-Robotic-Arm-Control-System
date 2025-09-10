@@ -1,0 +1,9 @@
+flask
+psycopg2-binary
+paho-mqtt
+numpy
+pandas
+SQLAlchemy
+python-dotenv
+gunicorn
+pytest
